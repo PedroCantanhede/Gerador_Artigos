@@ -4,7 +4,7 @@
   "description": "Backend do Gerador de Artigos WordPress",
   "main": "src/index.ts",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "dev": "ts-node src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js"
   },
@@ -22,10 +22,10 @@
     "@types/bcryptjs": "^2.4.6",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
-    "@types/jsonwebtoken": "^9.0.5",
+    "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^20.11.24",
     "prisma": "^5.10.0",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.3.3"
   }
-} 
+}

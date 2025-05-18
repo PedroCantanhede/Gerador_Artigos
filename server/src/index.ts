@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { PrismaClient } from '@prisma/client';
+import authRoutes from './routes/auth';
 
 // Configuração do ambiente
 dotenv.config();
@@ -17,6 +18,20 @@ app.use(express.json());
 // Rotas básicas
 app.get('/', (req, res) => {
   res.json({ message: 'API do Gerador de Artigos WordPress' });
+});
+
+// Rotas de autenticação
+app.use('/api/auth', authRoutes);
+
+// Middleware de erro
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Erro interno do servidor' });
+});
+
+// Middleware para rotas não encontradas
+app.use((req: express.Request, res: express.Response) => {
+  res.status(404).json({ error: 'Rota não encontrada' });
 });
 
 // Inicialização do servidor
