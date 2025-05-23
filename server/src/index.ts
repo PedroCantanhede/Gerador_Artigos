@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { PrismaClient } from '@prisma/client';
 import authRoutes from './routes/auth';
+import articleRoutes from './routes/articleRoutes';
 
 // Configuração do ambiente
 dotenv.config();
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
 
 // Rotas de autenticação
 app.use('/api/auth', authRoutes);
+app.use('/api/articles', articleRoutes);
 
 // Middleware de erro
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
