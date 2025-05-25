@@ -51,7 +51,7 @@ export default function LoginPage() {
       localStorage.setItem("user", JSON.stringify(result.user))
 
       toast.success("Login realizado com sucesso!")
-      router.push("/articles")
+      router.push("/")
     } catch (error) {
       console.error("Erro ao fazer login:", error);
       toast.error(error instanceof Error ? error.message : "Erro ao fazer login")

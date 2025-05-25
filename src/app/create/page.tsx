@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import {
@@ -47,6 +47,14 @@ export default function CreateArticlePage() {
     tone: "",
     size: "",
   })
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("Você precisa estar logado para criar artigos.");
+      router.push("/login");
+    }
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -185,7 +193,7 @@ export default function CreateArticlePage() {
           </CardContent>
 
           <CardFooter>
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button type="submit" className="w-full cursor-pointer mt-6" disabled={isLoading}>
               {isLoading ? "Gerando artigo..." : "Gerar Artigo"}
             </Button>
           </CardFooter>

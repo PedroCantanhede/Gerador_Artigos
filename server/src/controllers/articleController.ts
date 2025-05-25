@@ -78,25 +78,44 @@ export async function listArticlesController(req: Request, res: Response) {
       return res.status(401).json({ error: "Usuário não autenticado" })
     }
 
+    const page = parseInt(req.query.page as string) || 1; // Página atual (default 1)
+    const limit = parseInt(req.query.limit as string) || 10; // Quantidade por página (default 10)
+    const skip = (page - 1) * limit; // Calcular o offset
+
+    // Buscar artigos paginados
     const articles = await prisma.article.findMany({
       where: {
         authorId: userId,
       },
       orderBy: {
-        createdAt: "desc", // Ordenar por data de criação, os mais recentes primeiro
+        createdAt: "desc",
       },
-    })
+      skip: skip,
+      take: limit,
+    });
 
-    return res.status(200).json(articles)
+    // Contar o total de artigos (para calcular o total de páginas)
+    const totalArticles = await prisma.article.count({
+      where: {
+        authorId: userId,
+      },
+    });
+
+    return res.status(200).json({
+      articles,
+      totalArticles,
+      totalPages: Math.ceil(totalArticles / limit),
+      currentPage: page,
+    });
   } catch (error) {
-    console.error("Erro ao listar artigos:", error)
+    console.error("Erro ao listar artigos paginados:", error);
     if (error instanceof Error) {
-      return res.status(500).json({ 
+      return res.status(500).json({
         error: "Erro ao listar artigos",
-        details: error.message
-      })
+        details: error.message,
+      });
     }
-    return res.status(500).json({ error: "Erro interno do servidor" })
+    return res.status(500).json({ error: "Erro interno do servidor" });
   }
 }
 
