@@ -39,6 +39,13 @@ Este é um projeto para gerar artigos utilizando Inteligência Artificial (Googl
 - Exclusão de artigos
 - Layout responsivo na página inicial e design consistente com shadcn/ui
 
+## :camera: Veja:
+
+![GIF](./github/gerartai1.gif)
+![GIF](./github/gerartai2.gif)
+![GIF](./github/gerartai3.gif)
+
+
 ## Configuração e Como Rodar
 
 Siga os passos abaixo para configurar e rodar o projeto localmente.
